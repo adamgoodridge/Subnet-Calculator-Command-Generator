@@ -28,10 +28,6 @@ namespace subnet
         /// <param name="e"></param>
 
         private routers routers;
-        private void btnRun(object sender, EventArgs e)
-        {
-
-            }
         
         private void tableuserdata_KeyUp (object sender, KeyPressEventArgs e)
         {
@@ -55,14 +51,6 @@ namespace subnet
             
             string commands = routers.GetRouterCommannd(listBoxRouter.SelectedItem.ToString());
             textBoxCommands.Text = commands;
-        }
-        private void tableuserdata_ValueChanged(object sender, EventArgs e)
-        {
-            MessageBox.Show(e.ToString());
-        }
-        private void tableuserdata_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void vToolStripMenuItem_Click(object sender, EventArgs e)
@@ -187,7 +175,7 @@ namespace subnet
                 }
 
             }
-        
+
             //end
             tablesysdata.Sort(tablesysdata.Columns[3], ListSortDirection.Descending);
             //check if hosts are able to fit within the subnet given
@@ -203,7 +191,7 @@ namespace subnet
             foreach (DataGridViewRow routerrow in GirdViewRouters.Rows)
             {
                 routers.SetRouterSettings(Convert.ToString(routerrow.Cells["routerName"].Value), Convert.ToString(routerrow.Cells["routerDefaultRoute"].Value), Convert.ToBoolean(routerrow.Cells["routerOSPFEnabled"].Value), Convert.ToString(routerrow.Cells["routerOSPFRouterID"]), listBoxRouter);
-                
+
             }
             if (ip_object.GetIPType() == 4)
             {
@@ -222,15 +210,6 @@ namespace subnet
                     //padleft makes it 8 bits//MessageBox.Show("ip_in_binary");
 
                     ///end
-                    ///1  network name - sysnetname
-                    ///2 hosts required -hostsrequired
-                    ///3 minimum hosts – minimumhosts
-                    ///4 maximum hosts – maxhosts
-                    ///5 network id -NetworkID
-                    ///6 broadcast ID – BroadCastID
-                    ///7 first - fusable    
-                    ///8 last - lusable                                                                              
-
                     ///adding two numbers tother via deminal then turning the decimal into binary
                     // this gets the boardcast address and the 2nd line adds to the table.
                     tablesysdata.Rows[system_row_number].Cells["BroadCastID"].Value = ip_object.GetcurrentBroadcast();
@@ -243,7 +222,7 @@ namespace subnet
                     ///end
                     ///
                     //routers.NewInput("r2 s0/1", "Hi", listBoxRouter, dataGridViewAddresses, ip_object, 0);
-                    
+
                     //routers.NewInput(Convert.ToString(sysrow.Cells[9].Value), Convert.ToString(sysrow.Cells[0].Value), listBoxRouter, dataGridViewAddresses, ip_object, (int)sysrow.Cells["sysOSPFarea"].Value);routers.NewInput(Convert.ToString(sysrow.Cells[9].Value), Convert.ToString(tablesysdata.Rows[system_row_number].Cells[0].Value), listBoxRouter, dataGridViewAddresses, ip_object, (int)tablesysdata.Rows[system_row_number].Cells["sysOSPFarea"].Value);
                     try
                     {
@@ -261,15 +240,10 @@ namespace subnet
                 foreach (DataGridViewRow sysrow in tablesysdata.Rows)
                 {
                     system_row_number++;
-                    // getting hosts_needed generated from lass loop
-
-
-
                     //https://www.experts-exchange.com/questions/24415413/double-to-binary-in-c.html.
                     ip_object.SetCurrentInfo6(Convert.ToInt32(tablesysdata.Rows[system_row_number].Cells[8].Value));
                     tablesysdata.Rows[system_row_number].Cells[4].Value = ip_object.GetcurrentNetwork();
                     //string totalbinary = IPV4_convertors.ToBinary(n);
-
 
                     ///network_id ip ip binary
                     //padleft makes it 8 bits//MessageBox.Show("ip_in_binary");
@@ -278,27 +252,24 @@ namespace subnet
                     // this gets the boardcast address and the 2nd line adds to the table.
                     tablesysdata.Rows[system_row_number].Cells["BroadCastID"].Value = ip_object.GetcurrentBroadcast();
                     //routers.NewInput(Convert.ToString(tablesysdata.Rows[system_row_number].Cells["sys_routers"].Value), Convert.ToString(tablesysdata.Rows[system_row_number].Cells[0].Value), listBoxRouter, dataGridViewAddresses, ip_object, 2);
-                
-                    try
-                    {
-                       //routers.NewInput(Convert.ToString(tablesysdata.Rows[system_row_number].Cells["sys_routers"].Value), Convert.ToString(tablesysdata.Rows[system_row_number].Cells[0].Value), listBoxRouter, dataGridViewAddresses, ip_object, 2);
-                    }
-                    catch
-                    {
-
-                    }
                 }
+           
             }
 
             routers.GenterateCommands();
         }
 
-        private void butrun_ItemClicked(object sender, EventArgs e)
+        private void tbox1_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
-        private void GirdViewRouters_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void tbox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer2_Panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }
