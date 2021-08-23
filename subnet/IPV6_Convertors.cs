@@ -65,7 +65,7 @@ namespace subnet
                     oct++;
                 }
                 sub_binary = binary.Substring(k, 4);
-                //X rsays it make hex and capital
+                //X says it make hex and capital
                 sub_hex = Convert.ToInt32(sub_binary, 2).ToString("X");
                 hex += sub_hex;
 
@@ -73,11 +73,7 @@ namespace subnet
             hexoct[oct] = hex;
             hex = "";
             oct++;
-            int highest_zero = 0;
-            int highest_zero_s = -1;
-            int highest_zero_e = -1;
-            int current_s = 9;
-            int current_c = 0;
+            int highest_zero = 0, highest_zero_s = -1, highest_zero_e = -1, current_s = 9, current_c = 0;
             for (int ii = 0; ii < 8; ii++)
             {
                 hexoct[ii] = hexoct[ii].TrimStart('0');
