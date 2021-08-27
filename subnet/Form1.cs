@@ -104,7 +104,7 @@ namespace subnet
                     try
                     {
                         wanted = Convert.ToInt32(tableuserdata.Rows[0].Cells[1].Value);
-                    }
+                    
                     catch
                     {
                         throw new Exception_Message("Numbers are only allowed in the maxinium of hosts field");

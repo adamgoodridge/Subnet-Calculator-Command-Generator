@@ -46,10 +46,7 @@
             {
                 if (mask < 32)
                 {
-                    message = ipv4.check(orginal_networkid);
-                    if (!(message.Contains("-1/")))
-                        return message;
-
+                    ipv4.check(orginal_networkid);
                     //meaning remove -1/ from the start
                     binary = message.Substring(3);
                     try
