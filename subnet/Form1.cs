@@ -44,7 +44,7 @@ namespace subnet
         {
             try
             {
-                string ui = Convert.ToString(tbox1.Text);
+                string ui = Convert.ToString(tboxIP_Range.Text);
                 ip ip_object = new ip();
                 ip_object.SetUserinput(ui);
                IP_Type IP_Version = IP_TOOLS.Determine_Type(ui);
