@@ -87,11 +87,11 @@
   <ItemGroup>
     <Compile Include="binary_to_ipv4.cs" />
     <Compile Include="Exception_Message.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Main_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Main_Form.Designer.cs">
+      <DependentUpon>Main_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Interface_Info.cs" />
     <Compile Include="ip.cs" />
@@ -107,8 +107,8 @@
     <Compile Include="routers.cs" />
     <Compile Include="Sub-Interface.cs" />
     <Compile Include="Enums.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Main_Form.resx">
+      <DependentUpon>Main_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
