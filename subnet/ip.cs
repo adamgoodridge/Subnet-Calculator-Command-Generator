@@ -46,9 +46,7 @@
             {
                 if (mask < 32)
                 {
-                    ipv4.check(orginal_networkid);
-                    //meaning remove -1/ from the start
-                    binary = message.Substring(3);
+                    binary = ipv4.check(orginal_networkid);
                     try
                     {
                         networkBinary = binary.Substring(0, mask);

@@ -9,7 +9,7 @@ namespace subnet
     class ipv4 : ip
     {
         private int interestingOctet;
-        public static void check(string ip)
+        public static String check(string ip)
         {
             // checking  if ip have 4 octets
             string[] octects = ip.Split('.');
@@ -32,6 +32,7 @@ namespace subnet
                     throw new Exception_Message(ip + " is an invaild IP.");
                 }
             }
+            return totalbinary;
         }
         /*
         public void CheckVaildation()
