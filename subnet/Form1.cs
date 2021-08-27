@@ -50,7 +50,6 @@ namespace subnet
                IP_Type IP_Version = IP_TOOLS.Determine_Type(ui);
                 //quick fix until ip classes becomes 2 classes
                 ip_object.IP_Type = IP_Version == IP_Type.IPv4 ? 4 : 6;
-                //ip ip_object = IP_Version == IP_Type.IPv4 ? new ipv4(ui);
                 String message = ip_object.CheckVaildation();
                 if (message != "-1")
                 {
@@ -59,7 +58,7 @@ namespace subnet
                 }
                 int totalhosts;
                 int un_named_network = 0;
-                preparedGUIForOutput();
+                preparedGUIForOutput(IP_Version);
                 
                 // putting the user's input in systemstable
                 if (Convert.ToString(tableuserdata.Rows[0].Cells[0].Value) != "EQUAL=")
@@ -223,7 +222,6 @@ namespace subnet
 
         private void testDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
                 tableuserdata.Rows.Clear();
                 GirdViewRouters.Rows.Clear();
                 tableuserdata.Rows.Add();
