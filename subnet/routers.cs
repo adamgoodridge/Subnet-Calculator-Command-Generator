@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 namespace subnet
 {
@@ -7,50 +8,21 @@ namespace subnet
     {
         private List<string> routers_name = new List<string>();
         private List<router> router_info = new List<router>();
-        //public void NewInput(string input, string networkname, ListBox listBoxRouter, DataGridView dataGridViewAddresses, ip ip_object, int oSPFArea)
+        private static Regex regex = new Regex("[ ]{2,}", RegexOptions.None);
         public void NewInput(string input, string networkname, ListBox listBoxRouter, DataGridView dataGridViewAddresses, ip ip_object, int oSPFArea)
         {
+            input = regex.Replace(input, " ");
             String[] input_routers = input.Split(',');
-            String[] router_split;
-            string routerName;
-            int i;
-            bool linkLocal;
-
-            string inter, ip;
             foreach (String item in input_routers)
-            {
-                router_split = item.Split(' ');
-                i = 0;
-                while (router_split[i].ToString() == "")
-                {
-                    i++;
-                }
-                routerName = router_split[i];
-                i++;
-
-                while (router_split[i].ToString() == "")
-                {
-                    i++;
-                }
-                inter = router_split[i];
-
-                while (router_split[i].ToString() == "")
-                {
-                    i++;
-                }
-                inter = router_split[1].TrimEnd(',');
-                if (ip_object.getIsIPV6() && router_split[i] == "l")
-                {
-                    linkLocal = true;
-                }
-                else
-                {
-                    linkLocal = false;
-                }
-                ip = ip_object.GetAvailable();
+            { 
+                String[] router_split = item.Split(' ');
+                String routerName = router_split[0];
+                string @interface = router_split[1].TrimEnd(',');
+                bool linkLocal = (ip_object.getIsIPV6() && router_split.Length == 3 && router_split[3] == "l");
+                String ip = ip_object.GetAvailable();
                 int row = dataGridViewAddresses.Rows.Add();
                 dataGridViewAddresses.Rows[row].Cells["intRouterName"].Value = routerName;
-                dataGridViewAddresses.Rows[row].Cells["intInterface"].Value = inter;
+                dataGridViewAddresses.Rows[row].Cells["intInterface"].Value = @interface;
                 dataGridViewAddresses.Rows[row].Cells["intOSPFArea"].Value = oSPFArea;
                 if (ip_object.IP_Type == 4)
                 {
@@ -69,7 +41,7 @@ namespace subnet
                     router_info.Add(new router(routerName));
                     listBoxRouter.Items.Add(routerName);
                 }
-                router_info[routers_name.IndexOf(routerName)].AddInterface(inter, ip, ip_object.GetCurrentSubnet(), oSPFArea, ip_object.getIsIPV6(), linkLocal, ip_object.GetcurrentNetwork(), "");
+                router_info[routers_name.IndexOf(routerName)].AddInterface(@interface, ip, ip_object.GetCurrentSubnet(), oSPFArea, ip_object.getIsIPV6(), linkLocal, ip_object.GetcurrentNetwork(), "");
 
 
             }
