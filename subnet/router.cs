@@ -75,12 +75,6 @@ namespace subnet
 
 
         }
-        private void SetNetWorkid(string id, string wild, string area)
-        {
-            networkIDs.Add(id);
-            wildmasks.Add(wild);
-
-        }
         public void SetSettings(String dr, bool oSPF, string oID)
         {
             defaultRoute = dr;
