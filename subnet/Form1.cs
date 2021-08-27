@@ -57,32 +57,9 @@ namespace subnet
                     MessageBox.Show(message);
                     return;
                 }
-                tablesysdata.Rows.Clear();
-                dataGridViewAddresses.Rows.Clear();
-                tableuserdata.Refresh();
-                listBoxRouter.Items.Clear();
-                textBoxCommands.Text = "";
                 int totalhosts;
                 int un_named_network = 0;
-                if (IP_Version == IP_Type.IPv4)
-                {
-                    if (tablesysdata.Columns[5].Visible == false)
-                    {
-                        tablesysdata.Columns[4].Width = 100;
-                        tablesysdata.Columns[5].Visible = true;
-                        tablesysdata.Columns[6].Visible = true;
-                        tablesysdata.Columns[7].Visible = true;
-                        tablesysdata.Columns[8].HeaderText = "Subnet";
-                    }
-                }
-                else
-                {
-                    tablesysdata.Columns[4].Width = 240;
-                    tablesysdata.Columns[5].Visible = false;
-                    tablesysdata.Columns[6].Visible = false;
-                    tablesysdata.Columns[7].Visible = false;
-                    tablesysdata.Columns[8].HeaderText = "Prefix";
-                }
+                preparedGUIForOutput();
                 
                 // putting the user's input in systemstable
                 if (Convert.ToString(tableuserdata.Rows[0].Cells[0].Value) != "EQUAL=")
@@ -214,6 +191,35 @@ namespace subnet
                 MessageBox.Show(ex.Message);
             }
     }
+
+        private void preparedGUIForOutput(IP_Type iP_Version)
+        {
+            tablesysdata.Rows.Clear();
+            dataGridViewAddresses.Rows.Clear();
+            tableuserdata.Refresh();
+            listBoxRouter.Items.Clear();
+            textBoxCommands.Text = "";
+            Boolean isVisble;
+            int width;
+            String headerText;
+            if (iP_Version == IP_Type.IPv4)
+            {
+                 width = 100;
+                 isVisble = true;
+                 headerText = "Subnet";
+            }
+            else
+            {
+                width = 240;
+                isVisble = false;
+                headerText = "Prefix";
+            }
+            tablesysdata.Columns[4].Width = width;
+            tablesysdata.Columns[5].Visible = isVisble;
+            tablesysdata.Columns[6].Visible = isVisble;
+            tablesysdata.Columns[7].Visible = isVisble;
+            tablesysdata.Columns[8].HeaderText = headerText;
+        }
 
         private void testDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
