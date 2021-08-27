@@ -25,5 +25,10 @@ namespace subnet
             else
                 throw new Exception_Message(WRONG_FORMAT);
         }
+
+        internal static string ToBinary(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
     }

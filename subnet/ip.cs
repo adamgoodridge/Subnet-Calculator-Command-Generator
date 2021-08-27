@@ -9,6 +9,7 @@
         private string message;
         private string userinput;
         private int mask;
+        public String wildcardMask { set; get; }
         private string orginal_networkid;
         private string hostsBinary;
         private string networkBinary;
@@ -24,7 +25,7 @@
         {
             userinput = ni;
         }
-        public string wildCast()
+        public string GenerateWildcardMask()
         {
             string subnet_binary = "".PadLeft(mask, '0').PadLeft(32, '1');
             return binary_to_ipv4.Format(subnet_binary);
@@ -291,7 +292,7 @@
             binary = Convert.ToString(hostsDecimnal + (hosts_needed - 1), 2).PadLeft(32 - networkBinary.Length, '0');
             currentBroadcast = binary_to_ipv4.Format(networkBinary + binary);
             //end
-
+            wildcardMask = GenerateWildcardMask();
             //set next NetworkID
             binary = Convert.ToString(hostsDecimnal + (hosts_needed), 2).PadLeft(32 - networkBinary.Length, '0');
             nextNetworkid = binary_to_ipv4.Format(networkBinary + binary);

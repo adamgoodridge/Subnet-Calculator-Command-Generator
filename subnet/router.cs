@@ -45,6 +45,7 @@ namespace subnet
         }
         public void SetCommands()
         {
+            
             if (defaultRoute != "")
                 Commands.Add("ip route 0.0.0.0 0.0.0.0 " + defaultRoute);
             foreach (Interface_Info info in interfaces_info)
@@ -68,7 +69,9 @@ namespace subnet
                 Commands.Add("ip router ospf " + oSPFProcess); Commands.Add("  passive-interface default");
                 foreach (Interface_Info info in interfaces_info)
                 {
-                    Commands.Add(String.Format("  network {0} {1} area {2}", info.networkID, info.networkwildmask, info.oSPFArea));
+                    if (oSPFID != "")
+                        Commands.Add(String.Format(" router-id {0}", oSPFID));
+                    Commands.Add(String.Format("  network {0} {1} area {2}", info.networkID, info.wildcastMask, info.oSPFArea));
                     Commands.Add(String.Format("  no passive-interface {0}", info.Name));
                 }
             }

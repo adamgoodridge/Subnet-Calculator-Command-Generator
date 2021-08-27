@@ -17,12 +17,12 @@ namespace subnet
         public List<Boolean> linkLocal = new List<Boolean>();
         public int oSPFArea { get; set; }
         public string networkID { get; set; }
-        public string networkwildmask { get; set; }
+        public string wildcastMask { get; set; }
         private List<Sub_Interface> sub_interface = new List<Sub_Interface>();
         public void new_interface(string na) {
             Name = na;
         }
-        public void new_interface(string na, string ip, string sub, int area, Boolean ipsix, Boolean lLocal, string netID, string wildmask)
+        public void new_interface(string na, string ip, string sub, int area, Boolean ipsix, Boolean lLocal, string netID, string wildcastMask)
         {
             Name = na;
             if (ipsix == false)
@@ -32,7 +32,7 @@ namespace subnet
                 Is_IPV4 = true;
                 oSPFArea = area;
                 networkID = netID;
-                
+                this.wildcastMask = wildcastMask; 
             }
             else
             {

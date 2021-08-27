@@ -139,7 +139,7 @@ namespace subnet
                 //bug add a blank one
                 foreach (DataGridViewRow routerrow in GirdViewRouters.Rows)
                 {
-                    routers.SetRouterSettings(Convert.ToString(routerrow.Cells["routerName"].Value), Convert.ToString(routerrow.Cells["routerDefaultRoute"].Value), Convert.ToBoolean(routerrow.Cells["routerOSPFEnabled"].Value), Convert.ToString(routerrow.Cells["routerOSPFRouterID"]), listBoxRouter);
+                    routers.SetRouterSettings(Convert.ToString(routerrow.Cells["routerName"].Value), Convert.ToString(routerrow.Cells["routerDefaultRoute"].Value), Convert.ToBoolean(routerrow.Cells["routerOSPFEnabled"].Value), Convert.ToString(routerrow.Cells["routerOSPFRouterID"].Value), listBoxRouter);
                 }
                 if (IP_Version == IP_Type.IPv4)
                 {

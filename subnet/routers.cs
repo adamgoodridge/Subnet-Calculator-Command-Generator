@@ -41,7 +41,7 @@ namespace subnet
                     router_info.Add(new router(routerName));
                     listBoxRouter.Items.Add(routerName);
                 }
-                router_info[routers_name.IndexOf(routerName)].AddInterface(@interface, ip, ip_object.GetCurrentSubnet(), oSPFArea, ip_object.getIsIPV6(), linkLocal, ip_object.GetcurrentNetwork(), "");
+                router_info[routers_name.IndexOf(routerName)].AddInterface(@interface, ip, ip_object.GetCurrentSubnet(), oSPFArea, ip_object.getIsIPV6(), linkLocal, ip_object.GetcurrentNetwork(), ip_object.wildcardMask);
 
 
             }
