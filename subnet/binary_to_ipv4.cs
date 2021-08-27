@@ -8,16 +8,13 @@ namespace subnet
 {
     class binary_to_ipv4
     {
-        public static string format(string currentip_bin)
+        public static string Format(string currentip_bin)
         {
             /// making a array for octets 
             string[] nnetwork = new string[4];
-            ///end
-
             string newip;
             ///adding the leading 0
             currentip_bin = currentip_bin.PadLeft(32, '0');
-            ///end
             nnetwork[0] = currentip_bin.Substring(0, 8);
             nnetwork[1] = currentip_bin.Substring(8, 8);
             nnetwork[2] = currentip_bin.Substring(16, 8);

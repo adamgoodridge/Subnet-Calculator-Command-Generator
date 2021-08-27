@@ -6,30 +6,30 @@ using System.Threading.Tasks;
 
 namespace subnet
 {
-    class @interface_info
+    class Interface_Info
     {
-        public string name { get; set; }
+        public string Name { get; set; }
         private string ipv4;
-        private Boolean is_ipv4 = false;
+        private Boolean Is_IPV4 = false;
         private string subnet;
         public List<string> ips = new List<string>();
         public List<string> prefixes = new List<string>();
-                public List<Boolean> linkLocal = new List<Boolean>();
+        public List<Boolean> linkLocal = new List<Boolean>();
         public int oSPFArea { get; set; }
         public string networkID { get; set; }
         public string networkwildmask { get; set; }
         private List<Sub_Interface> sub_interface = new List<Sub_Interface>();
         public void new_interface(string na) {
-            name = na;
+            Name = na;
         }
         public void new_interface(string na, string ip, string sub, int area, Boolean ipsix, Boolean lLocal, string netID, string wildmask)
         {
-            name = na;
+            Name = na;
             if (ipsix == false)
             {
                 ipv4 = ip;
                 subnet = sub;
-                is_ipv4 = true;
+                Is_IPV4 = true;
                 oSPFArea = area;
                 networkID = netID;
                 
@@ -45,16 +45,12 @@ namespace subnet
         }
         public void  New_Sub_Interface(string na, string ip, string subnet, int oSPFArea, Boolean linkLocal, string netID, string wildmask)
         {
-            name = na;
+            Name = na;
             sub_interface.Add(new Sub_Interface(na,ip,subnet,oSPFArea, linkLocal,netID,wildmask));
         }
         public Boolean isLinkLocal(int i)
         {
             return linkLocal[i]; 
-        }
-        public string getName()
-        {
-            return name;
         }
         public string Getipv4()
         {
@@ -62,7 +58,7 @@ namespace subnet
         }
         public Boolean isIPv4()
         {
-            return is_ipv4;
+            return Is_IPV4;
         }
         public List<string> getIPs()
         {
@@ -75,16 +71,6 @@ namespace subnet
         public string GetPrefix(int index)
         {
             return prefixes[index];
-        }
-        public Boolean isSub()
-        {
-            if (sub_interface.Any())
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
         }
     }
 }

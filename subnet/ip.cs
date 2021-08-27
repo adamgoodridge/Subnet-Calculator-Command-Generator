@@ -4,62 +4,32 @@
 
     class ip
     {
-        private int ipType;
+        public int IP_Type { get; set; }
         private int hostsneeded;
         private string message;
         private string userinput;
         private int mask;
-        private int orginalMask;
         private string orginal_networkid;
         private string hostsBinary;
         private string networkBinary;
         private string binary;
         private int hostsDecimnal;
         //what is used to put the gui table
-        string currentNetwork, nextNetworkid;
-        string currentFirstUsable;
-        string currentLastUsable;
-        string currentBroadcast;
-        string currentsubnet;
+        string currentNetwork, nextNetworkid, currentFirstUsable, currentLastUsable, currentBroadcast, currentSubnet;
         //end
         private int hosts_assigned = 0;
         private int currentHostDecimal;
-        private int networkMask;
-        private Boolean isIPV6;
         private string currentNetworkBinary;
         public void SetUserinput(string ni)
         {
             userinput = ni;
         }
-        public string determine_type()
+        public string wildCast()
         {
-            if (userinput.Contains("/"))
-            {
-                if (userinput.Contains("."))
-                {
-                    ipType = 4;
-                    isIPV6 = false;
-                }
-                else if (userinput.Contains(":"))
-                {
-                    ipType = 6;
-                    isIPV6 = true;
-                }
-                else
-                {
-                    return "IP is in the right format, it should contain \".\" or \":\"";
-                }
-            }
-            else
-            {
-                return "IP is in the right format, it should something like ip/mask";
-            }
-            return "-1";
+            string subnet_binary = "".PadLeft(mask, '0').PadLeft(32, '1');
+            return binary_to_ipv4.Format(subnet_binary);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        // no exception means the input is vaild
         public string CheckVaildation()
         {
             string[] input = userinput.Split('/');
@@ -70,17 +40,16 @@
             }
             catch
             {
-                return mask + " isn't a invaild mask.";
+                throw new Exception_Message(mask + " isn't a invaild mask.");
             }
-            if (ipType == 4)
+            if (IP_Type == 4)
             {
                 if (mask < 32)
                 {
                     message = ipv4.check(orginal_networkid);
                     if (!(message.Contains("-1/")))
-                    {
                         return message;
-                    }
+
                     //meaning remove -1/ from the start
                     binary = message.Substring(3);
                     try
@@ -89,20 +58,15 @@
                         //with referring mask right bellow it take off the first character off of the amount of mask
                         hostsBinary = binary.Substring(mask, 32 - mask);
                     }
-                    catch
+                    catch (Exception_Message)
                     {
-                        return mask + " isn't a invaild mask.";
+                        throw new Exception_Message(mask + " isn't a invaild mask.");
                     }
                 }
                 else
-                {
-                    return mask + " can't higher than 32.";
-                }
-
+                    throw new Exception_Message(mask + " can't higher than 32.");
                 if (Determine_vaild_id() == false)
-                {
-                    return orginal_networkid + " isn't a vaild network ID.";
-                }
+                    throw new Exception_Message(orginal_networkid + " isn't a vaild network ID.");
             }
             else
             {
@@ -110,11 +74,11 @@
                 {
                     return mask + " isn't a invaild mask.";
                 }
-
                 binary = subnet.ipv6.check(orginal_networkid);
 
             }
             nextNetworkid = orginal_networkid;
+
             return "-1";
 
         }
@@ -141,21 +105,26 @@
                     {
                         numofhosts = 0;
                         toobig = true;
-
                     }
                     interest_bit = i + mask;
                     //get out of the loop quickly as it is pointless now
                     i = max + 1;
-                    currentsubnet = interest_bit.ToString();
+                    currentSubnet = interest_bit.ToString();
                     numofnetworks = pow;
                 }
-                if (ipType == 4)
+                if (IP_Type == 4)
                 {
                     string subnet_binary = "".PadLeft(interest_bit, '0').PadLeft(max + 2, '1');
-                    currentsubnet = binary_to_ipv4.format(subnet_binary);
+                    currentSubnet = binary_to_ipv4.Format(subnet_binary);
                 }
             }
         }
+
+        internal bool getIsIPV6()
+        {
+            return IP_Type == 6;
+        }
+
         public int GetInterestBit()
         {
             return interest_bit;
@@ -174,37 +143,16 @@
         }
         public int CalculateMaxMask()
         {
-            if (ipType == 4)
-            {
-                return 32;
-            }
-            return 128;
+            return (IP_Type == 4) ? 32 : 128;
         }
         public bool Determine_vaild_id()
         {
-            string good = "";
-            if (ipType == 4)
-            {
-                good = good.PadLeft((32 - mask), '0');
-            }
-            else
-            {
-                good = good.PadLeft((128 - mask), '0');
-            }
-            if (hostsBinary == good)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            string good = "".PadLeft((((IP_Type == 4) ? 32 : 128) - mask), '0');
+            return (hostsBinary == good);
         }
         private double calculate_available_hosts()
         {
-            double ava;
-            ava = (Math.Pow(2, (CalculateMaxMask() - mask)));
-            return ava;
+            return Math.Pow(2, CalculateMaxMask() - mask);
         }
         public void add_hosts(int hosts)
         {
@@ -213,24 +161,15 @@
         public string Compare_Hosts()
         {
             if (hostsneeded <= calculate_available_hosts())
-            {
                 return "-1";
-            }
             else if (hostsneeded == 0)
-            {
-                return "You don't have any networks defined.";
-            }
+                throw new Exception_Message("You don't have any networks defined.");
             else
             {
                 //-(formula) removes "-" from the negative.
                 double missing = -(calculate_available_hosts() - hostsneeded);
                 return "You don't have enough hosts to meet requirements by " + missing + " hosts.";
             }
-        }
-        int current_subnet;
-        public void IPV6Info(int mask, System.Windows.Forms.DataGridView tablesysdata)
-        {
-            // networks = Math.Pow(2, (64 - mask)); 
         }
         public int CalculateSpaceRequired6(int hosts)
         {
@@ -245,11 +184,11 @@
                     {
                         int hosts_bits = i - pow;
                         string subnet_binary = "".PadLeft(i, '0').PadLeft(max + 2, '1');
-                        currentsubnet = binary_to_ipv4.format(subnet_binary);
+                        currentSubnet = binary_to_ipv4.Format(subnet_binary);
                     }
                     else
                     {
-                        currentsubnet = (128 - i).ToString();
+                        currentSubnet = (128 - i).ToString();
                     }
                     interest_bit = i;
                     return pow;
@@ -257,10 +196,12 @@
             }
             return -1;
         }
-        public bool getIsIPV6()
+
+        internal int GetIPType()
         {
-            return isIPV6;
+            throw new NotImplementedException();
         }
+
         public int CalculateSpaceRequired(int hosts)
         {
             int pow;
@@ -272,30 +213,30 @@
                     int hosts_bits = i - pow;
                     string subnet_binary = "".PadLeft(i, '0').PadLeft(32, '1');
                     mask = i;
-                    currentsubnet = binary_to_ipv4.format(subnet_binary);
+                    currentSubnet = binary_to_ipv4.Format(subnet_binary);
 
                     return pow;
-                
+
                 }
             }
             return -1;
         }
         public string GetCurrentSubnet()
         {
-            return currentsubnet;
+            return currentSubnet;
         }
         public void SetCurrentInfo6(int wanted_networks)
 
         {
             int i = 0;
-            while(Math.Pow(2,i) < wanted_networks)
+            while (Math.Pow(2, i) < wanted_networks)
             {
                 i++;
             }
             currentNetwork = IPV6_Convertors.binarytoipv6(binary);
             currentNetworkBinary = binary;
             networkBinary = binary.Substring(0, mask);
-            binary = AddIPV6(64-i);
+            binary = AddIPV6(64 - i);
             prefix = 64 - i;
 
 
@@ -315,10 +256,7 @@
             {
                 sub_sum = (int)(reminder + char.GetNumericValue(int_binary[ii]) + Char.GetNumericValue(add_binary[ii]));
                 if (sub_sum == 3)
-                {
                     reminder = 1;
-                    sub_sum = 1;
-                }
                 else if (sub_sum == 2)
                 {
                     reminder = 1;
@@ -334,41 +272,39 @@
                 }
                 else
                 {
-                    sub_sum = 0;
                     reminder = 0;
                     ii = -1;
                 }
             }
-            sum = binary.Substring(0,64-sum.Length) + sum;
-            return sum.PadRight(128,'0');
+            sum = binary.Substring(0, 64 - sum.Length) + sum;
+            return sum.PadRight(128, '0');
         }
         public void SetCurrentInfo4(int hosts_needed)
         {
-           
             // works out network id
             currentNetwork = nextNetworkid;
             //end 
             // works out First Usable
-            binary = Convert.ToString(hostsDecimnal + 1, 2).PadLeft(32-networkBinary.Length,'0');
-            currentFirstUsable = binary_to_ipv4.format(networkBinary + binary);
+            binary = Convert.ToString(hostsDecimnal + 1, 2).PadLeft(32 - mask, '0');
+            currentFirstUsable = binary_to_ipv4.Format(networkBinary + binary);
             //end
             // works out Last Usable
-            binary = Convert.ToString(hostsDecimnal + (hosts_needed - 2),2).PadLeft(32 - networkBinary.Length, '0');
-            currentLastUsable = binary_to_ipv4.format(networkBinary + binary);
+            binary = Convert.ToString(hostsDecimnal + (hosts_needed - 2), 2).PadLeft(32 - networkBinary.Length, '0');
+            currentLastUsable = binary_to_ipv4.Format(networkBinary + binary);
             //end
             // works out Broadcast ID
-            binary = Convert.ToString(hostsDecimnal + (hosts_needed - 1),2).PadLeft(32 - networkBinary.Length, '0');
-            currentBroadcast = binary_to_ipv4.format(networkBinary + binary);
+            binary = Convert.ToString(hostsDecimnal + (hosts_needed - 1), 2).PadLeft(32 - networkBinary.Length, '0');
+            currentBroadcast = binary_to_ipv4.Format(networkBinary + binary);
             //end
 
             //set next NetworkID
-            binary = Convert.ToString(hostsDecimnal + (hosts_needed),2).PadLeft(32 - networkBinary.Length, '0');
-            nextNetworkid = binary_to_ipv4.format(networkBinary + binary);
+            binary = Convert.ToString(hostsDecimnal + (hosts_needed), 2).PadLeft(32 - networkBinary.Length, '0');
+            nextNetworkid = binary_to_ipv4.Format(networkBinary + binary);
             // getting ready to assign hosts.
             binary = Convert.ToString(hostsDecimnal, 2).PadLeft(32 - networkBinary.Length, '0');
             currentHostDecimal = hostsDecimnal;
             hostsDecimnal += hosts_needed;
-             
+
 
 
         }
@@ -383,15 +319,16 @@
         public string GetAvailable()
         {
             hosts_assigned++;
-            if(ipType==4)
+            if (IP_Type == 4)
             {
-                binary = Convert.ToString(currentHostDecimal + hosts_assigned,2).PadLeft(32-mask,'0');
-                return binary_to_ipv4.format(networkBinary + binary);
-            } else {
-                //currentNetworkBinary = AddIPV6(currentNetworkBinary,128);
+                binary = Convert.ToString(currentHostDecimal + hosts_assigned, 2).PadLeft(32 - mask, '0');
+                return binary_to_ipv4.Format(networkBinary + binary);
+            }
+            else
+            {
                 return IPV6_Convertors.binarytoipv6(currentNetworkBinary);
             }
-        } 
+        }
         public string GetcurrentLastUsable()
         {
             return currentLastUsable;
@@ -400,10 +337,6 @@
         public string GetcurrentBroadcast()
         {
             return currentBroadcast;
-        }
-        public int GetIPType()
-        {
-            return ipType;
         }
     }
 }

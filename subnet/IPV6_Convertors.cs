@@ -68,7 +68,6 @@ namespace subnet
                 //X says it make hex and capital
                 sub_hex = Convert.ToInt32(sub_binary, 2).ToString("X");
                 hex += sub_hex;
-
             }
             hexoct[oct] = hex;
             hex = "";
@@ -82,17 +81,13 @@ namespace subnet
                     current_c++;
                     hexoct[ii] = "0";
                     if (current_s == 9)
-                    {
                         current_s = ii;
-                    }
                 }
                 else
                 {
                     if (current_c > highest_zero)
                     {
-
                         string hexoct_string = hexoct[0] + ":" + hexoct[1] + ":" + hexoct[2] + ":" + hexoct[3] + ":" + hexoct[4] + ":" + hexoct[5] + ":" + hexoct[6] + ":" + hexoct[7];
-
                         highest_zero = current_c;
                         highest_zero_s = current_s;
                         highest_zero_e = ii;

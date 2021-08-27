@@ -52,7 +52,7 @@ namespace subnet
                 dataGridViewAddresses.Rows[row].Cells["intRouterName"].Value = routerName;
                 dataGridViewAddresses.Rows[row].Cells["intInterface"].Value = inter;
                 dataGridViewAddresses.Rows[row].Cells["intOSPFArea"].Value = oSPFArea;
-                if (ip_object.GetIPType() == 4)
+                if (ip_object.IP_Type == 4)
                 {
                     dataGridViewAddresses.Rows[row].Cells["intIP"].Value = ip;
                     dataGridViewAddresses.Rows[row].Cells["intSubnet"].Value = ip_object.GetCurrentSubnet();
@@ -62,7 +62,7 @@ namespace subnet
                     dataGridViewAddresses.Rows[row].Cells["intIP"].Value = ip + "/" + ip_object.GetCurrentSubnet();
                 }
                 dataGridViewAddresses.Rows[row].Cells["intNetwork"].Value = networkname;
-
+               
                 if (!routers_name.Contains(routerName))
                 {
                     routers_name.Add(routerName);

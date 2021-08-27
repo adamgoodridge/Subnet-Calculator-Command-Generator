@@ -6,7 +6,7 @@ namespace subnet
     {
         private string name;
         private List<string> interfaces = new List<string>();
-        private List<interface_info> interfaces_info = new List<interface_info>();
+        private List<Interface_Info> interfaces_info = new List<Interface_Info>();
         private List<string> Commands = new List<string>();
         private List<string> networkIDs = new List<string>();
         private List<string> wildmasks = new List<string>();
@@ -32,22 +32,24 @@ namespace subnet
                     interfaces.Add(vlan[0]);
                 }
                 interfaces_info[interfaces_info.Count - 1].New_Sub_Interface(inter, ip, subnet, oSPFArea, linkLocal, netID, wildmask);
-            } else
+            }
+            else
             {
-                if (!interfaces.Contains(inter)) {
+                if (!interfaces.Contains(inter))
+                {
                     interfaces.Add(inter);
-                    interfaces_info.Add(new interface_info() { name = inter });
+                    interfaces_info.Add(new Interface_Info() { Name = inter });
                     interfaces_info[interfaces.IndexOf(inter)].new_interface(inter, ip, subnet, oSPFArea, is_ipv6, linkLocal, netID, wildmask);
                 }
             }
         }
         public void SetCommands()
         {
-            if (defaultRoute !="")
+            if (defaultRoute != "")
                 Commands.Add("ip route 0.0.0.0 0.0.0.0 " + defaultRoute);
-            foreach (interface_info info in interfaces_info)
+            foreach (Interface_Info info in interfaces_info)
             {
-                Commands.Add("interface " + info.name);
+                Commands.Add("interface " + info.Name);
                 int i = 0;
                 if (info.isIPv4() == true)
                 {
@@ -60,10 +62,17 @@ namespace subnet
 
                 }
                 Commands.Add("no shutdown");
-                if(ospf_enable==true) {
-                    Commands.Add("ip router ospf " + oSPFProcess);
+            }
+            if (ospf_enable == true)
+            {
+                Commands.Add("ip router ospf " + oSPFProcess); Commands.Add("  passive-interface default");
+                foreach (Interface_Info info in interfaces_info)
+                {
+                    Commands.Add(String.Format("  network {0} {1} area {2}", info.networkID, info.networkwildmask, info.oSPFArea));
+                    Commands.Add(String.Format("  no passive-interface {0}", info.Name));
                 }
             }
+
 
         }
         private void SetNetWorkid(string id, string wild, string area)
