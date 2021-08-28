@@ -27,7 +27,7 @@
         public string GenerateWildcardMask()
         {
             string subnet_binary = "".PadLeft(mask, '0').PadLeft(32, '1');
-            return binary_to_ipv4.Format(subnet_binary);
+            return IP_TOOLS.BinaryTOIPv4(subnet_binary);
         }
         // no exception means the input is vaild
         public string CheckVaildation()
@@ -110,7 +110,7 @@
                 if (IP_Type == 4)
                 {
                     string subnet_binary = "".PadLeft(interest_bit, '0').PadLeft(max + 2, '1');
-                    currentSubnet = binary_to_ipv4.Format(subnet_binary);
+                    currentSubnet = IP_TOOLS.BinaryTOIPv4(subnet_binary);
                 }
             }
         }
@@ -179,7 +179,7 @@
                     {
                         int hosts_bits = i - pow;
                         string subnet_binary = "".PadLeft(i, '0').PadLeft(max + 2, '1');
-                        currentSubnet = binary_to_ipv4.Format(subnet_binary);
+                        currentSubnet = IP_TOOLS.BinaryTOIPv4(subnet_binary);
                     }
                     else
                     {
@@ -204,7 +204,7 @@
                     int hosts_bits = i - pow;
                     string subnet_binary = "".PadLeft(i, '0').PadLeft(32, '1');
                     mask = i;
-                    currentSubnet = binary_to_ipv4.Format(subnet_binary);
+                    currentSubnet = IP_TOOLS.BinaryTOIPv4(subnet_binary);
 
                     return pow;
 
@@ -276,20 +276,20 @@
             //end 
             // works out First Usable
             binary = Convert.ToString(hostsDecimnal + 1, 2).PadLeft(32 - networkBinary.Length, '0');
-            currentFirstUsable = binary_to_ipv4.Format(networkBinary + binary);
+            currentFirstUsable = IP_TOOLS.BinaryTOIPv4(networkBinary + binary);
             //end
             // works out Last Usable
             binary = Convert.ToString(hostsDecimnal + (hosts_needed - 2), 2).PadLeft(32 - networkBinary.Length, '0');
-            currentLastUsable = binary_to_ipv4.Format(networkBinary + binary);
+            currentLastUsable = IP_TOOLS.BinaryTOIPv4(networkBinary + binary);
             //end
             // works out Broadcast ID
             binary = Convert.ToString(hostsDecimnal + (hosts_needed - 1), 2).PadLeft(32 - networkBinary.Length, '0');
-            currentBroadcast = binary_to_ipv4.Format(networkBinary + binary);
+            currentBroadcast = IP_TOOLS.BinaryTOIPv4(networkBinary + binary);
             //end
             wildcardMask = GenerateWildcardMask();
             //set next NetworkID
             binary = Convert.ToString(hostsDecimnal + (hosts_needed), 2).PadLeft(32 - networkBinary.Length, '0');
-            nextNetworkid = binary_to_ipv4.Format(networkBinary + binary);
+            nextNetworkid = IP_TOOLS.BinaryTOIPv4(networkBinary + binary);
             // getting ready to assign hosts.
             binary = Convert.ToString(hostsDecimnal, 2).PadLeft(32 - networkBinary.Length, '0');
             currentHostDecimal = hostsDecimnal;
@@ -312,7 +312,7 @@
             if (IP_Type == 4)
             {
                 binary = Convert.ToString(currentHostDecimal + hosts_assigned, 2).PadLeft(32 - mask, '0');
-                return binary_to_ipv4.Format(networkBinary + binary);
+                return IP_TOOLS.BinaryTOIPv4(networkBinary + binary);
             }
             else
             {

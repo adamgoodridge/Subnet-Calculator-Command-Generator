@@ -43,7 +43,7 @@ namespace subnet
                 //gets the next usable IP address
                 String binary = ipv4.check(ip);
                 binary = IP_TOOLS.Add_Binary(binary,"1");
-                ip = binary_to_ipv4.Format(binary);
+                ip = IP_TOOLS.BinaryTOIPv4(binary);
             }
         }
         public void SetRouterSettings(string name, String dr, bool oSPF, string oID, ListBox listBoxRouter)

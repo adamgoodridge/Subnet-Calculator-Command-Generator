@@ -85,7 +85,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="binary_to_ipv4.cs" />
     <Compile Include="Exception_Message.cs" />
     <Compile Include="Main_Form.cs">
       <SubType>Form</SubType>
