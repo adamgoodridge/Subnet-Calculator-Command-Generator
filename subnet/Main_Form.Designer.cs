@@ -585,7 +585,7 @@ namespace subnet
             this.testDataToolStripMenuItem.Text = "Test Data";
             this.testDataToolStripMenuItem.Click += new System.EventHandler(this.testDataToolStripMenuItem_Click);
             // 
-            // Form1
+            // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -594,8 +594,8 @@ namespace subnet
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "Form1";
-            this.Text = "`";
+            this.Name = "Main_Form";
+            this.Text = "Subnet Calculator Command Generator";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabRouters.ResumeLayout(false);
             this.input1.ResumeLayout(false);
