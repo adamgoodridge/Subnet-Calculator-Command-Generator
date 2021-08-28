@@ -6,7 +6,6 @@
     {
         public int IP_Type { get; set; }
         private int hostsneeded;
-        private string message;
         private string userinput;
         private int mask;
         public String wildcardMask { set; get; }
@@ -37,11 +36,11 @@
             orginal_networkid = input[0];
             try
             {
-                mask = Convert.ToInt32(input[1]);
+                mask = int.Parse(input[1]);
             }
             catch
             {
-                throw new Exception_Message(mask + " isn't a invaild mask.");
+                throw new Exception_Message(mask + " isn't a invalid mask.");
             }
             if (IP_Type == 4)
             {
@@ -56,13 +55,13 @@
                     }
                     catch (Exception_Message)
                     {
-                        throw new Exception_Message(mask + " isn't a invaild mask.");
+                        throw new Exception_Message(mask + " isn\'t a invalid mask.");
                     }
                 }
                 else
-                    throw new Exception_Message(mask + " can't higher than 32.");
+                    throw new Exception_Message(mask + " can\'t higher than 32.");
                 if (Determine_vaild_id() == false)
-                    throw new Exception_Message(orginal_networkid + " isn't a vaild network ID.");
+                    throw new Exception_Message(orginal_networkid + " isn\'t a vaild network ID.");
             }
             else
             {
@@ -70,7 +69,7 @@
                 {
                     return mask + " isn't a invaild mask.";
                 }
-                binary = subnet.ipv6.check(orginal_networkid);
+                binary = ipv6.check(orginal_networkid);
 
             }
             nextNetworkid = orginal_networkid;
@@ -193,10 +192,6 @@
             return -1;
         }
 
-        internal int GetIPType()
-        {
-            throw new NotImplementedException();
-        }
 
         public int CalculateSpaceRequired(int hosts)
         {

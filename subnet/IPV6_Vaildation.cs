@@ -43,7 +43,6 @@ namespace subnet
         {
             ///works out how hosts are needed in-order to sucessful subnet
             hosts += 2;
-            long hosts_needed = 0;
             int power = 1;
 
             while ((long)Math.Pow(2, power) <= hosts)
@@ -51,7 +50,7 @@ namespace subnet
                 // just increase the value until there is enough hosts avabille
                 power++;
             }
-            hosts_needed = (long)Math.Pow(2, power);
+            long hosts_needed = (long)Math.Pow(2, power);
             ///end of code
             hostsneeded += hosts_needed;
             //cleaning up for the next time we go through the row.
