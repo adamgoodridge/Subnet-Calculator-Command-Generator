@@ -45,9 +45,9 @@ namespace subnet
             try
             {
                 string ui = Convert.ToString(tboxIP_Range.Text);
+                IP_Type IP_Version = IP_TOOLS.Determine_Type(ui);
                 ip ip_object = new ip();
                 ip_object.SetUserinput(ui);
-               IP_Type IP_Version = IP_TOOLS.Determine_Type(ui);
                 //quick fix until ip classes becomes 2 classes
                 ip_object.IP_Type = IP_Version == IP_Type.IPv4 ? 4 : 6;
                 String message = ip_object.CheckVaildation();
