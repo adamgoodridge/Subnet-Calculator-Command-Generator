@@ -110,7 +110,7 @@ namespace subnet
                         throw new Exception_Message("Numbers are only allowed in the maxinium of hosts field");
                     }
                     ip_object.SetNumOfNetworks(wanted);
-                    string hosts = (ip_object.Checkiflarge() == false ||IP_Version == IP_Type.IPv4) ? ip_object.GetNumberofNetworks().ToString() : ">1000000";
+                    string hosts = (ip_object.Checkiflarge() == false || ip_object.GetIPType() == 4) ? ip_object.GetNumberofNetworks().ToString() : ">1000000";
                     for (int i = 1; i <= ip_object.GetNumberofNetworks(); i++)
                     {
                         int new_row = tablesysdata.Rows.Add();
