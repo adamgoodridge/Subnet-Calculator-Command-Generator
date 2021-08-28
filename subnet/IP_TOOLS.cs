@@ -25,10 +25,27 @@ namespace subnet
             else
                 throw new Exception_Message(WRONG_FORMAT);
         }
-
-        internal static string ToBinary(string v)
+        public static String Add_Binary(String binA, String binB)
         {
-            throw new NotImplementedException();
+            if (binA.Length > binB.Length)
+                binB = binB.PadLeft(binA.Length, '0');
+            else
+                binA = binA.PadLeft(binB.Length, '0');
+            int carry = 0;
+            char[] a = binA.ToCharArray(), b = binB.ToCharArray();
+            char[] charOutput = new char[a.Length];
+            for (int i = a.Length - 1; i >= 0; i--)
+            {
+                int a0 = Convert.ToInt32(char.GetNumericValue(a[i]));
+                int b0 = Convert.ToInt32(char.GetNumericValue(b[i]));
+                int sum = carry + a0 + b0;
+                int rem = sum % 2;
+                carry = sum - rem;
+                if (carry == 2)
+                    carry = 1;
+                charOutput[i] = rem.ToString().ToCharArray()[0];
+            }
+                return new string(charOutput);
         }
     }
     }

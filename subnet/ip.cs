@@ -277,11 +277,10 @@
         }
         public void SetCurrentInfo4(int hosts_needed)
         {
-            // works out network id
             currentNetwork = nextNetworkid;
             //end 
             // works out First Usable
-            binary = Convert.ToString(hostsDecimnal + 1, 2).PadLeft(32 - mask, '0');
+            binary = Convert.ToString(hostsDecimnal + 1, 2).PadLeft(32 - networkBinary.Length, '0');
             currentFirstUsable = binary_to_ipv4.Format(networkBinary + binary);
             //end
             // works out Last Usable

@@ -155,11 +155,13 @@ namespace subnet
 
                         try
                         {
-                            routers.NewInput(Convert.ToString(row.Cells[9].Value), Convert.ToString(row.Cells[0].Value), listBoxRouter, dataGridViewAddresses, ip_object, 0);
+                            int oSPFArea = Int32.Parse((string)row.Cells["sysOSPFArea"].Value);
+                            String subnet = (string)row.Cells["submask"].Value;
+                            routers.NewInput(Convert.ToString(row.Cells[9].Value), Convert.ToString(row.Cells[0].Value), listBoxRouter, dataGridViewAddresses, ip_object, oSPFArea, subnet,ip_object.GetcurrentFirstUsable());
                         }
-                        catch
+                        catch (Exception ex)
                         {
-
+                            MessageBox.Show(ex.Message);
                         }
                     }
                 }
@@ -225,16 +227,36 @@ namespace subnet
                 tableuserdata.Rows.Clear();
                 GirdViewRouters.Rows.Clear();
                 tableuserdata.Rows.Add();
-                tableuserdata.Rows[0].Cells[0].Value = "Office";
-                tableuserdata.Rows[0].Cells[1].Value = "65";
-                tableuserdata.Rows[0].Cells[2].Value = "R1 G0/2";
-                tableuserdata.Rows[0].Cells[3].Value = "0";
+            int i = 0;
+                tableuserdata.Rows[i].Cells[0].Value = "Office";
+                tableuserdata.Rows[i].Cells[1].Value = "65";
+                tableuserdata.Rows[i].Cells[2].Value = "R1 G0/2";
+                tableuserdata.Rows[i].Cells[3].Value = "1";
+            tableuserdata.Rows.Add();
+            i = 1; 
+            tableuserdata.Rows[i].Cells[0].Value = "Accounting";
+            tableuserdata.Rows[i].Cells[1].Value = "605";
+            tableuserdata.Rows[i].Cells[2].Value = "R2 G0/2";
+            tableuserdata.Rows[i].Cells[3].Value = "2";
+            tableuserdata.Rows.Add();
+            i = 2;
+            tableuserdata.Rows[i].Cells[0].Value = "Link point-to-point";
+            tableuserdata.Rows[i].Cells[1].Value = "2";
+            tableuserdata.Rows[i].Cells[2].Value = "R2 G0/2, R1 G0/1";
+            tableuserdata.Rows[i].Cells[3].Value = "0";
+            GirdViewRouters.Rows.Add();
+            i = 0;
+                GirdViewRouters.Rows[i].Cells[0].Value = "R1";
+                GirdViewRouters.Rows[i].Cells[2].Value = true;
+                GirdViewRouters.Rows[i].Cells[3].Value = "1.1.1.1";
+                GirdViewRouters.Rows[i].Cells[4].Value = "1";
+            i = 1;
                 GirdViewRouters.Rows.Add();
-                GirdViewRouters.Rows[0].Cells[0].Value = "R1";
-                GirdViewRouters.Rows[0].Cells[2].Value = true;
-                GirdViewRouters.Rows[0].Cells[3].Value = "1.1.1.1";
-                GirdViewRouters.Rows[0].Cells[4].Value = "1";
-
+                GirdViewRouters.Rows[i].Cells[0].Value = "R2";
+                GirdViewRouters.Rows[i].Cells[2].Value = true;
+                GirdViewRouters.Rows[i].Cells[3].Value = "1.1.1.2";
+                GirdViewRouters.Rows[i].Cells[4].Value = "1";
+            MessageBox.Show(IP_TOOLS.Add_Binary("01", "1"));
            
         }
     }
