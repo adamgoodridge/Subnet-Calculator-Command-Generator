@@ -35,12 +35,9 @@ namespace subnet
             }
             else
             {
-                if (!interfaces.Contains(inter))
-                {
                     interfaces.Add(inter);
                     interfaces_info.Add(new Interface_Info() { Name = inter });
                     interfaces_info[interfaces.IndexOf(inter)].new_interface(inter, ip, subnet, oSPFArea, is_ipv6, linkLocal, netID, wildmask);
-                }
             }
         }
         public void SetCommands()
