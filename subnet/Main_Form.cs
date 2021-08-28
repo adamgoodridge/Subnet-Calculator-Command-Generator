@@ -256,7 +256,7 @@ namespace subnet
                 GirdViewRouters.Rows[i].Cells[2].Value = true;
                 GirdViewRouters.Rows[i].Cells[3].Value = "1.1.1.2";
                 GirdViewRouters.Rows[i].Cells[4].Value = "1";
-            MessageBox.Show(IP_TOOLS.Add_Binary("01", "1"));
+            //MessageBox.Show(IP_TOOLS.Add_Binary("01", "1"));
            
         }
     }
