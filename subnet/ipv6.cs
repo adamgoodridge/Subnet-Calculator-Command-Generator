@@ -8,6 +8,9 @@ namespace subnet
 {
     class ipv6
     {
+        private static readonly int MAXIMUM_MASK = 16;
+        private string currentSubnet;
+
         public static string check(string ipv6)
         {
             string delimiter = "::";
@@ -87,8 +90,27 @@ namespace subnet
 
 
         }
+        /*
+        public int CalculateSpaceRequired(int hosts)
+        {
+            int pow;
+            for (int i = 1; i <= MAXIMUM_MASK; i++)
+            {
+                pow = Convert.ToInt32(Math.Pow(2, i));
+                if (pow >= hosts)
+                {
+                  currentSubnet = (128 - i).ToString();
+                }
 
-        public string iptobinary(string ip)
+                int interest_bit = i;
+                return pow;
+                }
+            }
+            return -1;
+        }
+
+
+    public string Iptobinary(string ip)
         {
             string[] hexadecatets = ip.Split(':');
             int i = 3;
@@ -107,5 +129,6 @@ namespace subnet
         //{
             //string[] hexadecatets = new[8];
         //}
+        */
     }
 }

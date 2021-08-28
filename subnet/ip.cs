@@ -46,7 +46,7 @@
             {
                 if (mask < 32)
                 {
-                    binary = ipv4.check(orginal_networkid);
+                    binary = IP_TOOLS.IPv4ToBinary(orginal_networkid);
                     try
                     {
                         networkBinary = binary.Substring(0, mask);
@@ -165,31 +165,6 @@
                 double missing = -(calculate_available_hosts() - hostsneeded);
                 return "You don't have enough hosts to meet requirements by " + missing + " hosts.";
             }
-        }
-        public int CalculateSpaceRequired6(int hosts)
-        {
-            int pow;
-            int max = CalculateMaxMask();
-            for (int i = 1; i <= max; i++)
-            {
-                pow = Convert.ToInt32(Math.Pow(2, i));
-                if (pow >= hosts)
-                {
-                    if (max == 30)
-                    {
-                        int hosts_bits = i - pow;
-                        string subnet_binary = "".PadLeft(i, '0').PadLeft(max + 2, '1');
-                        currentSubnet = IP_TOOLS.BinaryTOIPv4(subnet_binary);
-                    }
-                    else
-                    {
-                        currentSubnet = (128 - i).ToString();
-                    }
-                    interest_bit = i;
-                    return pow;
-                }
-            }
-            return -1;
         }
 
 

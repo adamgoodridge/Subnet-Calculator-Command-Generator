@@ -9,31 +9,7 @@ namespace subnet
     class ipv4 : ip
     {
         private int interestingOctet;
-        public static String check(string ip)
-        {
-            // checking  if ip have 4 octets
-            string[] octects = ip.Split('.');
-            if (octects.Length != 4)
-                throw new Exception_Message(ip + " is a Invaild IP as not having 4 octets.");
-            //end
-            string totalbinary = "";
-            foreach (string octect in octects)
-            {
-                //try needed incase of the convert fail
-                try
-                {
-                    if (Convert.ToInt32(octect) >= 256)
-                        throw new Exception_Message(ip + " is a Invaild IP, as " + octect + " is higher than 255.");
-                    else
-                        totalbinary += IP_TOOLS.ToBinary(Convert.ToInt32(octect));
-                }
-                catch
-                {
-                    throw new Exception_Message(ip + " is an invaild IP.");
-                }
-            }
-            return totalbinary;
-        }
+        
         /*
         public void CheckVaildation()
         {

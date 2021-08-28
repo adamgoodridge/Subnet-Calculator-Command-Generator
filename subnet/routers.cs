@@ -31,17 +31,16 @@ namespace subnet
                     dataGridViewAddresses.Rows[row].Cells["intSubnet"].Value = subnetMask;
                 }
                 else
-                {
                     dataGridViewAddresses.Rows[row].Cells["intIP"].Value = ip + "/" + subnetMask;
-                }
+       
                 dataGridViewAddresses.Rows[row].Cells["intNetwork"].Value = networkname;
+
                 if (!routers_name.Contains(routerName))
-                {
                     throw new Exception_Message(routerName + " doesn't exist");
-                }
+
                 router_info[routers_name.IndexOf(routerName)].AddInterface(@interface, ip, subnetMask, oSPFArea, ip_object.getIsIPV6(), linkLocal, ip_object.GetcurrentNetwork(), ip_object.wildcardMask);
                 //gets the next usable IP address
-                String binary = ipv4.check(ip);
+                String binary = IP_TOOLS.IPv4ToBinary(ip);
                 binary = IP_TOOLS.Add_Binary(binary,"1");
                 ip = IP_TOOLS.BinaryTOIPv4(binary);
             }
